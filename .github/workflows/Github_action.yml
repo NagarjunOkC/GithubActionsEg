@@ -6,18 +6,19 @@ on:
     branches: 
       - master
       - develop
-      
+              
 jobs:
  test:
-   name: Running Unit Tests
+   name: Running Units Tests
    runs-on: ubuntu-latest
-   
+    
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+       node-version: ${{ matrix.node-version }}
     - name: Install
       run: npm install
-    -name: Test
-     run: npm test
-       
+    - name: Test
+      run: npm test       
