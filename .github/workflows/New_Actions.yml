@@ -7,10 +7,25 @@ on:
   push:
     branches:
       - 'master'
-
+  
 jobs:
-  test:
-    name: Run Unit Tests
+  build-and-run:
+    name: Build and Run
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build Code
+      run: make
+    - name: Nominal Run
+      run: ./hello
+    - uses: actions/upload-artifact@master
+      with:
+        name: hello artifact
+        path: hello
+
+  apk:
+    name: Generate APK
     runs-on: ubuntu-18.04
 
     steps:
@@ -19,5 +34,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Unit tests
-        run: bash ./gradlew test --stacktrace
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
