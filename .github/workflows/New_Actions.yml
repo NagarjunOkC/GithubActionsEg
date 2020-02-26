@@ -11,7 +11,7 @@ on:
 jobs:
   build-and-run:
     name: Build and Run
-    runs-on: ubuntu-latest
+    runs-on: macos
     
     steps:
     - uses: actions/checkout@v1
@@ -26,7 +26,7 @@ jobs:
 
   apk:
     name: Generate APK
-    runs-on: ubuntu-18.04
+    runs-on: macos
 
     steps:
       - uses: actions/checkout@v1
